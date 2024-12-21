@@ -1,0 +1,138 @@
+definitions:
+  dtos.RunResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dtos.SetResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dtos.StatusResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dtos.StopAllResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dtos.UnsetResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  orchestrator.Status:
+    properties:
+      auto_restart:
+        type: boolean
+      id:
+        type: string
+      name:
+        type: string
+      pid:
+        type: integer
+      running:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  description: This is an API that controls running processes.
+  title: orchestrator-api
+  version: 0.0.1
+paths:
+  /run:
+    get:
+      description: This endpoint tries to run all the executables that are set in
+        the orchestrator.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.RunResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.RunResponse'
+      summary: Run all the executables
+      tags:
+      - orchestrator
+  /set:
+    get:
+      description: This endpoint sets the executables in the orchestrator. In order
+        to set the executables again, all processes must be stopped and unset.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.SetResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.SetResponse'
+      summary: Set the executables
+      tags:
+      - orchestrator
+  /status:
+    get:
+      description: This endpoint returns the status of the executables that are set
+        in the orchestrator.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/orchestrator.Status'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.StatusResponse'
+      summary: Return the status of the executables
+      tags:
+      - orchestrator
+  /stopall:
+    get:
+      description: This endpoint tries to stop all the executables that are set in
+        the orchestrator.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.StopAllResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.StopAllResponse'
+      summary: Stops all the executables
+      tags:
+      - orchestrator
+  /unset:
+    get:
+      description: This endpoint unsets the executables in the orchestrator. In order
+        to unset the executables, all processes must be stopped.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.UnsetResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.UnsetResponse'
+      summary: Unset the executables
+      tags:
+      - orchestrator
+swagger: "2.0"

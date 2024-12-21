@@ -1,0 +1,206 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is an API that controls running processes.",
+        "title": "orchestrator-api",
+        "contact": {},
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/run": {
+            "get": {
+                "description": "This endpoint tries to run all the executables that are set in the orchestrator.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Run all the executables",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.RunResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.RunResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/set": {
+            "get": {
+                "description": "This endpoint sets the executables in the orchestrator. In order to set the executables again, all processes must be stopped and unset.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Set the executables",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.SetResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.SetResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/status": {
+            "get": {
+                "description": "This endpoint returns the status of the executables that are set in the orchestrator.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Return the status of the executables",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/orchestrator.Status"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.StatusResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stopall": {
+            "get": {
+                "description": "This endpoint tries to stop all the executables that are set in the orchestrator.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Stops all the executables",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.StopAllResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.StopAllResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/unset": {
+            "get": {
+                "description": "This endpoint unsets the executables in the orchestrator. In order to unset the executables, all processes must be stopped.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Unset the executables",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.UnsetResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.UnsetResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dtos.RunResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.SetResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.StatusResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.StopAllResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.UnsetResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "orchestrator.Status": {
+            "type": "object",
+            "properties": {
+                "auto_restart": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pid": {
+                    "type": "integer"
+                },
+                "running": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}
