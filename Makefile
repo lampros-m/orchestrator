@@ -10,12 +10,12 @@ build:
 	CGO_ENABLED=0 go build -o "${BIN_ORCHESTRATORSERVER}" "${CMD_ORCHESTRATORSERVER}/"
 	CGO_ENABLED=0 go build -o "${BIN_ORCHESTRATORCLI}" "${CMD_ORCHESTRATORCLI}/"
 
-# Server orchistrator run
+# Server orchestrator run
 .PHONY: run-server
 run-server:
 	./"${BIN_ORCHESTRATORSERVER}"
 
-# CLI orchistrator run
+# CLI orchestrator run
 .PHONY: run-cli
 run-cli:
 	./"${BIN_ORCHESTRATORCLI}"

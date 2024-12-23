@@ -1,4 +1,4 @@
-# orchistrator-api
+# orchestrator-api
 
 1. [ Overview ](#overview)
 2. [ How to run - API ](#runapi)
