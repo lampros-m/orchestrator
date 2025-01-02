@@ -1,0 +1,5 @@
+# Ignore all log files of mock services
+mockservices/**/*.log
+
+# Ignore all log files of orchestrator
+logs/*.log

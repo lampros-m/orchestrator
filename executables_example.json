@@ -7,7 +7,8 @@
         "arguments": [],
         "log_file_name": "out",
         "error_file_name": "errors",
-        "auto_restart": true
+        "auto_restart": true,
+        "group": 1
     },
     {
         "name": "Service Beta",
@@ -17,7 +18,8 @@
         "arguments": ["run", "main.go"],
         "log_file_name": "out",
         "error_file_name": "errors",
-        "auto_restart": false
+        "auto_restart": false,
+        "group": 1
     },
     {
         "name": "Service Charlie",
@@ -27,7 +29,8 @@
         "arguments": [],
         "log_file_name": "out",
         "error_file_name": "errors",
-        "auto_restart": true
+        "auto_restart": true,
+        "group": 2
     },
     {
         "name": "List Home Directory",
@@ -37,7 +40,8 @@
         "arguments": ["-la", "/home"],
         "log_file_name": "out",
         "error_file_name": "errors",
-        "auto_restart": false
+        "auto_restart": false,
+        "group": 2
     },
     {
         "name": "Service Epsilon",
@@ -47,6 +51,7 @@
         "arguments": [],
         "log_file_name": "out",
         "error_file_name": "errors",
-        "auto_restart": false
+        "auto_restart": false,
+        "group": 3
     }
 ]

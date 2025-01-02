@@ -1,9 +1,10 @@
 - FE implementation in order to consume API
-- Delay of restart or max number of tries restart
-- Enpoint that returns the log or errors for a specific process
-- Dependencies (minor implementation - depend one) - to be discussed
-- ForceStop -> Ignore auto restart
-- Start Stop each process (all, one, group)
-- Respect groups
-- env var to start the orch run when server is up
-- orchestrator to log to files
+? Delay of restart or max number of tries restart - To be discussed ...
++ Enpoint that returns the log or errors for a specific process
+? Dependencies - To be discussed ...
++ ForceStop -> Ignore auto restart
++ Start Stop each process (all, one)
++ Start stop group
++ Respect groups
++ env var to start the orch run when server is up
++ orchestrator to log to files

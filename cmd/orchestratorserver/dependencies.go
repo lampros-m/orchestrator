@@ -6,11 +6,7 @@ import (
 	"orchestrator/internal/orchestrator"
 )
 
-func dependencies() *apihttp.Router {
-	// orchestrator
-	instance := orchestrator.NewOrchestrator()
-
-	// controllers
+func dependencies(instance *orchestrator.Orchestrator) *apihttp.Router {
 	orchestrator := controllers.NewOrchestrator(instance)
 
 	return apihttp.NewRouter(

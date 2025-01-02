@@ -2,11 +2,10 @@
 
 1. [ Overview ](#overview)
 2. [ How to run - API ](#runapi)
-3. [ How to run - CLI ](#runcli)
-4. [ Configuration ](#configuration)
-5. [ Swagger ](#swagger)
-6. [ Mock Services ](#mock)
-7. [ TODO ](#todo)
+3. [ Configuration ](#configuration)
+4. [ Swagger ](#swagger)
+5. [ Mock Services ](#mock)
+6. [ TODO ](#todo)
 
 <a name="overview"></a>
 ## 1. Overview
@@ -18,50 +17,44 @@ Creates a mechanism that can handle and monitor running processes
 ```
 make build run-server
 ```
-or
+or execute the already built file
 ```
 ./bin/orchestratorserver
 ```
 
-<a name="runcli"></a>
-## 3. How to run - CLI
-```
-make build run-cli
-```
-or
-```
-./bin/orchestratorcli
-```
-
 <a name="configuration"></a>
-## 4. How to configure
+## 3. How to configure
 Edit the `executables.json` file. The format of configuration is in `executables_example.json`.
 
 Example:
 
 ```
-"name": "Service Beta",
-"binary_path": "/usr/local/go/bin/go",
-"working_dir": "/home/bayman/repositories/invisiblez/orchestrator/mockservices/serviceb/cmd",
-"log_dir": "/home/bayman/repositories/invisiblez/orchestrator/mockservices/serviceb",
-"arguments": ["run", "main.go"],
+"name": "Service Charlie",
+"binary_path": "/home/bayman/repositories/invisiblez/orchestrator/mockservices/servicec/cmd/main",
+"working_dir": "/home/bayman/repositories/invisiblez/orchestrator/mockservices/servicec/cmd",
+"log_dir": "/home/bayman/repositories/invisiblez/orchestrator/mockservices/servicec",
+"arguments": [],
 "log_file_name": "out",
 "error_file_name": "errors",
-"auto_restart": false
+"auto_restart": true,
+"group": 2
 ```
 
-The `.env` file keeps info about `server port` and where the `executables.json` file is located.
+The `.env` file keeps info about:
+- `server port` - Server port
+- `executables.json` Where the file with executables is located
+- `setup` and `run`: If the executables set and run will be applied automatically after the start of the server
 
 <a name="swagger"></a>
-## 5. Swagger
+## 4. Swagger
 In order to update swagger documenation, run `make swag`
 After running the API Server, the documentation of the API can be found at: `http://localhost:8090/swagger/index.html`
 
 
 <a name="mock"></a>
-## 6. Mock Services
+## 5. Mock Services
 The mock services package is for mock-test purposes only.
 
 <a name="todo"></a>
-## 7. TODO
+## 6. TODO
 TODO file for future implementation

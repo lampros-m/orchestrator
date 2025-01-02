@@ -1,4 +1,19 @@
 definitions:
+  dtos.ExecLogsResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dtos.RunAllResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dtos.RunGroupResponse:
+    properties:
+      message:
+        type: string
+    type: object
   dtos.RunResponse:
     properties:
       message:
@@ -19,6 +34,16 @@ definitions:
       message:
         type: string
     type: object
+  dtos.StopGroupResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  dtos.StopResponse:
+    properties:
+      message:
+        type: string
+    type: object
   dtos.UnsetResponse:
     properties:
       message:
@@ -28,6 +53,8 @@ definitions:
     properties:
       auto_restart:
         type: boolean
+      group:
+        type: integer
       id:
         type: string
       name:
@@ -43,10 +70,46 @@ info:
   title: orchestrator-api
   version: 0.0.1
 paths:
+  /execlogs:
+    get:
+      description: This endpoint tries to get the logs of an executable that is set
+        in the orchestrator.
+      parameters:
+      - description: UUID of the executable to get logs
+        format: uuid
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: Type of logs to get
+        in: query
+        name: type
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.ExecLogsResponse'
+      summary: Get the logs of an executable
+      tags:
+      - orchestrator
   /run:
     get:
-      description: This endpoint tries to run all the executables that are set in
-        the orchestrator.
+      description: This endpoint tries to run an executable that is set in the orchestrator.
+      parameters:
+      - description: UUID of the executable to run
+        format: uuid
+        in: query
+        name: id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -58,7 +121,49 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/dtos.RunResponse'
+      summary: Run an executable
+      tags:
+      - orchestrator
+  /runall:
+    get:
+      description: This endpoint tries to run all the executables that are set in
+        the orchestrator.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.RunAllResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.RunAllResponse'
       summary: Run all the executables
+      tags:
+      - orchestrator
+  /rungroup:
+    get:
+      description: This endpoint tries to run a group of executables that are set
+        in the orchestrator.
+      parameters:
+      - description: Group ID to run
+        in: query
+        name: group
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.RunGroupResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.RunGroupResponse'
+      summary: Run a group of executables
       tags:
       - orchestrator
   /set:
@@ -99,6 +204,30 @@ paths:
       summary: Return the status of the executables
       tags:
       - orchestrator
+  /stop:
+    get:
+      description: This endpoint tries to stop an executable that is set in the orchestrator.
+      parameters:
+      - description: UUID of the group to stop
+        format: uuid
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.StopResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.StopResponse'
+      summary: Stops an executable
+      tags:
+      - orchestrator
   /stopall:
     get:
       description: This endpoint tries to stop all the executables that are set in
@@ -115,6 +244,30 @@ paths:
           schema:
             $ref: '#/definitions/dtos.StopAllResponse'
       summary: Stops all the executables
+      tags:
+      - orchestrator
+  /stopgroup:
+    get:
+      description: This endpoint tries to stop a group of executables that are set
+        in the orchestrator.
+      parameters:
+      - description: Group ID to stop
+        in: query
+        name: group
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dtos.StopGroupResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dtos.StopGroupResponse'
+      summary: Stops a group of executables
       tags:
       - orchestrator
   /unset:

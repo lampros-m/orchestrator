@@ -15,7 +15,86 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/execlogs": {
+            "get": {
+                "description": "This endpoint tries to get the logs of an executable that is set in the orchestrator.",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Get the logs of an executable",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the executable to get logs",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Type of logs to get",
+                        "name": "type",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.ExecLogsResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/run": {
+            "get": {
+                "description": "This endpoint tries to run an executable that is set in the orchestrator.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Run an executable",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the executable to run",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.RunResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.RunResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/runall": {
             "get": {
                 "description": "This endpoint tries to run all the executables that are set in the orchestrator.",
                 "produces": [
@@ -29,13 +108,48 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dtos.RunResponse"
+                            "$ref": "#/definitions/dtos.RunAllResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.RunResponse"
+                            "$ref": "#/definitions/dtos.RunAllResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/rungroup": {
+            "get": {
+                "description": "This endpoint tries to run a group of executables that are set in the orchestrator.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Run a group of executables",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Group ID to run",
+                        "name": "group",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.RunGroupResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.RunGroupResponse"
                         }
                     }
                 }
@@ -96,6 +210,42 @@ const docTemplate = `{
                 }
             }
         },
+        "/stop": {
+            "get": {
+                "description": "This endpoint tries to stop an executable that is set in the orchestrator.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Stops an executable",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "UUID of the group to stop",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.StopResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.StopResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/stopall": {
             "get": {
                 "description": "This endpoint tries to stop all the executables that are set in the orchestrator.",
@@ -117,6 +267,41 @@ const docTemplate = `{
                         "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/dtos.StopAllResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stopgroup": {
+            "get": {
+                "description": "This endpoint tries to stop a group of executables that are set in the orchestrator.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orchestrator"
+                ],
+                "summary": "Stops a group of executables",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Group ID to stop",
+                        "name": "group",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.StopGroupResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.StopGroupResponse"
                         }
                     }
                 }
@@ -150,6 +335,30 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "dtos.ExecLogsResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.RunAllResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.RunGroupResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
         "dtos.RunResponse": {
             "type": "object",
             "properties": {
@@ -182,6 +391,22 @@ const docTemplate = `{
                 }
             }
         },
+        "dtos.StopGroupResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "dtos.StopResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
         "dtos.UnsetResponse": {
             "type": "object",
             "properties": {
@@ -195,6 +420,9 @@ const docTemplate = `{
             "properties": {
                 "auto_restart": {
                     "type": "boolean"
+                },
+                "group": {
+                    "type": "integer"
                 },
                 "id": {
                     "type": "string"

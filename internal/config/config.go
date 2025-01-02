@@ -12,6 +12,7 @@ var instance *Config
 type Config struct {
 	HTTP_PORT             string `envconfig:"HTTP_PORT"  required:"true"`
 	EXECUTABLES_JSON_PATH string `envconfig:"EXECUTABLES_JSON_PATH" required:"true"`
+	AUTOSETRUN            bool   `envconfig:"AUTOSETRUN" required:"true"`
 }
 
 func load() (*Config, error) {

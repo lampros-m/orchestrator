@@ -7,11 +7,15 @@ import (
 	"orchestrator/internal/logger"
 	"os"
 	"os/exec"
-	"sync"
 	"syscall"
 	"time"
 
 	"github.com/google/uuid"
+)
+
+var (
+	// SIGTERM: Signal for graceful exit. Consider SIGINT for interruption or Process.Kill() for imidiate termination.
+	GracefullExitSignal = syscall.SIGTERM
 )
 
 type Executables []*Executable
@@ -30,6 +34,7 @@ type Configuration struct {
 	LogFileName   string   `json:"log_file_name"`
 	ErrorFileName string   `json:"error_file_name"`
 	AutoRestart   bool     `json:"auto_restart"`
+	Group         int      `json:"group"`
 }
 
 type Process struct {
@@ -42,14 +47,15 @@ type Process struct {
 
 type Status struct {
 	ID          string `json:"id"`
-	Running     bool   `json:"running"`
 	Name        string `json:"name"`
 	PID         int    `json:"pid"`
+	Running     bool   `json:"running"`
 	AutoRestart bool   `json:"auto_restart"`
+	Group       int    `json:"group"`
 }
 
-func (o *Executable) Start() error {
-	if o.Status().Running {
+func (o *Executable) start() error {
+	if o.status().Running {
 		return errors.New("executable is already running: " + o.Name)
 	}
 
@@ -84,8 +90,8 @@ func (o *Executable) Start() error {
 
 	cmd := exec.Command(o.BinaryPath, o.Arguments...)
 	cmd.Dir = o.WorkingDir
-	cmd.Stdout = io.MultiWriter(outLogF) // Place os.Stdout to see the output of each executable in the terminal - "dirty way"
-	cmd.Stderr = io.MultiWriter(errLogF) // Place os.Stdout to see the output of each executable in the terminal - "dirty way"
+	cmd.Stdout = io.MultiWriter(outLogF)
+	cmd.Stderr = io.MultiWriter(errLogF)
 
 	err = cmd.Start()
 	if err != nil {
@@ -101,23 +107,23 @@ func (o *Executable) Start() error {
 	return nil
 }
 
-func (o *Executable) Wait(wg *sync.WaitGroup, stopNotifications chan Notification) {
-	defer wg.Done()
-
+func (o *Executable) wait(stopNotifications chan Notification) {
 	err := o.CMD.Wait()
 
 	o.OutLogFileHandle.Close()
 	o.ErrorsLogFileHandle.Close()
 	o.CMD = nil
+
 	stopNotifications <- Notification{Executable: o, err: err}
 }
 
-func (o *Executable) Status() Status {
+func (o *Executable) status() Status {
 	status := Status{}
 	status.ID = o.ID.String()
 	status.Name = o.Name
 	status.PID = o.PID
 	status.AutoRestart = o.AutoRestart
+	status.Group = o.Group
 
 	running := true
 	switch {
@@ -131,13 +137,12 @@ func (o *Executable) Status() Status {
 	return status
 }
 
-func (o *Executable) Stop() error {
+func (o *Executable) stop() error {
 	if o.CMD == nil || o.CMD.Process == nil {
 		return nil
 	}
 
-	// Other options: SIGINT for interruption or Process.Kill() for imidiate termination
-	if err := o.CMD.Process.Signal(syscall.SIGTERM); err != nil {
+	if err := o.CMD.Process.Signal(GracefullExitSignal); err != nil {
 		return fmt.Errorf("failed to signal executable %s : %w", o.Name, err)
 	}
 
@@ -208,6 +213,15 @@ func (o *Executable) validate() error {
 	}
 	f.Close()
 	os.Remove(testFile)
+
+	// Log & Error File Names
+	if o.LogFileName == "" {
+		return errors.New("log file name is required: " + o.Name)
+	}
+
+	if o.ErrorFileName == "" {
+		return errors.New("error file name is required: " + o.Name)
+	}
 
 	return nil
 }

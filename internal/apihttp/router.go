@@ -26,11 +26,24 @@ func NewRouter(
 
 // @BasePath
 func (o *Router) Route(e *echo.Echo) {
+	// Generic
 	e.GET("/set", o.Orchestrator.Set)
 	e.GET("/unset", o.Orchestrator.Unset)
 	e.GET("/status", o.Orchestrator.Status)
-	e.GET("/run", o.Orchestrator.Run)
-	e.GET("/stopall", o.Orchestrator.StopAll)
 
+	// Run
+	e.GET("/runall", o.Orchestrator.RunAll)
+	e.GET("rungroup", o.Orchestrator.RunGroup)
+	e.GET("/run", o.Orchestrator.Run)
+
+	// Stop
+	e.GET("/stopall", o.Orchestrator.StopAll)
+	e.GET("/stopgroup", o.Orchestrator.StopGroup)
+	e.GET("/stop", o.Orchestrator.Stop)
+
+	// Logs
+	e.GET("/execlogs", o.Orchestrator.ExecLogs)
+
+	// Swagger
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 }
