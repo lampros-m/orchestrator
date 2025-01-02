@@ -1,7 +1,7 @@
 - FE implementation in order to consume API
-? Delay of restart or max number of tries restart - To be discussed ...
-+ Enpoint that returns the log or errors for a specific process
 ? Dependencies - To be discussed ...
++ Delay of restart
++ Enpoint that returns the log or errors for a specific process
 + ForceStop -> Ignore auto restart
 + Start Stop each process (all, one)
 + Start stop group

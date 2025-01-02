@@ -13,8 +13,13 @@ import (
 	"sort"
 	"strings"
 	"syscall"
+	"time"
 
 	"github.com/google/uuid"
+)
+
+var (
+	RestartDelaySeconds = 10
 )
 
 type OrchestratorInterface interface {
@@ -75,7 +80,8 @@ func (o *Orchestrator) ConsumeNotifications() {
 		}
 
 		if executable.AutoRestart && !o.isErrorGracefull(notification.err) {
-			o.Logger.Printf(logger.LogInfo+"Restarting executable %s", executable.Name)
+			o.Logger.Printf(logger.LogInfo+"Sleepin delay before starting the executable: %s", executable.Name)
+			time.Sleep(time.Duration(RestartDelaySeconds) * time.Second)
 			o.startExecutable(executable)
 		}
 	}
