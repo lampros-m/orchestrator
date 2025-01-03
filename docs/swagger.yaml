@@ -1,50 +1,5 @@
 definitions:
-  dtos.ExecLogsResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  dtos.RunAllResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  dtos.RunGroupResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  dtos.RunResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  dtos.SetResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  dtos.StatusResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  dtos.StopAllResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  dtos.StopGroupResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  dtos.StopResponse:
-    properties:
-      message:
-        type: string
-    type: object
-  dtos.UnsetResponse:
+  dtos.GenericResponse:
     properties:
       message:
         type: string
@@ -86,6 +41,11 @@ paths:
         name: type
         required: true
         type: string
+      - default: 0
+        description: Offset of the logs to get
+        in: query
+        name: offset
+        type: integer
       produces:
       - text/plain
       responses:
@@ -96,7 +56,7 @@ paths:
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.ExecLogsResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Get the logs of an executable
       tags:
       - orchestrator
@@ -116,11 +76,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dtos.RunResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.RunResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Run an executable
       tags:
       - orchestrator
@@ -134,11 +94,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dtos.RunAllResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.RunAllResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Run all the executables
       tags:
       - orchestrator
@@ -158,11 +118,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dtos.RunGroupResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.RunGroupResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Run a group of executables
       tags:
       - orchestrator
@@ -176,11 +136,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dtos.SetResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.SetResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Set the executables
       tags:
       - orchestrator
@@ -200,7 +160,7 @@ paths:
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.StatusResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Return the status of the executables
       tags:
       - orchestrator
@@ -220,11 +180,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dtos.StopResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.StopResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Stops an executable
       tags:
       - orchestrator
@@ -238,11 +198,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dtos.StopAllResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.StopAllResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Stops all the executables
       tags:
       - orchestrator
@@ -262,11 +222,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dtos.StopGroupResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.StopGroupResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Stops a group of executables
       tags:
       - orchestrator
@@ -280,11 +240,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/dtos.UnsetResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/dtos.UnsetResponse'
+            $ref: '#/definitions/dtos.GenericResponse'
       summary: Unset the executables
       tags:
       - orchestrator

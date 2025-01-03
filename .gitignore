@@ -3,3 +3,6 @@ mockservices/**/*.log
 
 # Ignore all log files of orchestrator
 logs/*.log
+
+# Ingore bin folder
+bin/

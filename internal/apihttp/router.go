@@ -33,7 +33,7 @@ func (o *Router) Route(e *echo.Echo) {
 
 	// Run
 	e.GET("/runall", o.Orchestrator.RunAll)
-	e.GET("rungroup", o.Orchestrator.RunGroup)
+	e.GET("/rungroup", o.Orchestrator.RunGroup)
 	e.GET("/run", o.Orchestrator.Run)
 
 	// Stop

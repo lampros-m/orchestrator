@@ -1,5 +1,3 @@
-- FE implementation in order to consume API
-? Dependencies - To be discussed ...
 + Delay of restart
 + Enpoint that returns the log or errors for a specific process
 + ForceStop -> Ignore auto restart
@@ -8,3 +6,8 @@
 + Respect groups
 + env var to start the orch run when server is up
 + orchestrator to log to files
+
+- Group from int to name in config
+- Multiple dependenies - Can be handled with groups(?)
+- FE implementation in order to consume API
+- Delay restart in JSON (optional)

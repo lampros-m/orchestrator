@@ -40,6 +40,13 @@ const docTemplate = `{
                         "name": "type",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 0,
+                        "description": "Offset of the logs to get",
+                        "name": "offset",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -52,7 +59,7 @@ const docTemplate = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.ExecLogsResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -82,13 +89,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dtos.RunResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.RunResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -108,13 +115,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dtos.RunAllResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.RunAllResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -143,13 +150,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dtos.RunGroupResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.RunGroupResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -169,13 +176,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dtos.SetResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.SetResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -204,7 +211,7 @@ const docTemplate = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.StatusResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -234,13 +241,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dtos.StopResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.StopResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -260,13 +267,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dtos.StopAllResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.StopAllResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -295,13 +302,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dtos.StopGroupResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.StopGroupResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -321,13 +328,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/dtos.UnsetResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/dtos.UnsetResponse"
+                            "$ref": "#/definitions/dtos.GenericResponse"
                         }
                     }
                 }
@@ -335,79 +342,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "dtos.ExecLogsResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.RunAllResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.RunGroupResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.RunResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.SetResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.StatusResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.StopAllResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.StopGroupResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.StopResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "dtos.UnsetResponse": {
+        "dtos.GenericResponse": {
             "type": "object",
             "properties": {
                 "message": {

@@ -268,7 +268,7 @@ func (o *Orchestrator) Stop(echoContext echo.Context) error {
 //	@Produce		text/plain
 //	@Param			id		query		string	true	"UUID of the executable to get logs"	format(uuid)
 //	@Param			type	query		string	true	"Type of logs to get"					enum("errors", "out")
-//	@Param			offset	query		int		false	"Offset of the logs to get"			default(0)
+//	@Param			offset	query		int		false	"Offset of the logs to get"				default(0)
 //	@Success		200		{string}	string
 //	@Failure		500		{object}	dtos.GenericResponse
 //	@Router			/execlogs [get]
