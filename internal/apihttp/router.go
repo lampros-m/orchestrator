@@ -46,4 +46,8 @@ func (o *Router) Route(e *echo.Echo) {
 
 	// Swagger
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
+
+	// Static
+	e.Static("/", "assets")
+	e.GET("index", func(c echo.Context) error { return c.File("assets/index.html") })
 }
