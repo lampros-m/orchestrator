@@ -5,4 +5,4 @@ mockservices/**/*.log
 logs/*.log
 
 # Ingore bin folder
-bin/
+bin/*
