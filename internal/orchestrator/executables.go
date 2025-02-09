@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"orchestrator/internal/helpers"
 	"orchestrator/internal/logger"
 	"os"
 	"os/exec"
@@ -34,7 +35,7 @@ type Configuration struct {
 	LogFileName   string   `json:"log_file_name"`
 	ErrorFileName string   `json:"error_file_name"`
 	AutoRestart   bool     `json:"auto_restart"`
-	Group         int      `json:"group"`
+	Group         string   `json:"group"`
 }
 
 type Process struct {
@@ -51,7 +52,7 @@ type Status struct {
 	PID         int    `json:"pid"`
 	Running     bool   `json:"running"`
 	AutoRestart bool   `json:"auto_restart"`
-	Group       int    `json:"group"`
+	Group       string `json:"group"`
 }
 
 func (o *Executable) start() error {
@@ -221,6 +222,11 @@ func (o *Executable) validate() error {
 
 	if o.ErrorFileName == "" {
 		return errors.New("error file name is required: " + o.Name)
+	}
+
+	// Group
+	if !helpers.IsOnlyLowercaseAndNumbersAndNotEmpty(o.Group) {
+		return errors.New("this group name is invalid: " + o.Group)
 	}
 
 	return nil

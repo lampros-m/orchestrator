@@ -11,3 +11,4 @@
 - Multiple dependenies - Can be handled with groups(?)
 - FE implementation in order to consume API
 - Delay restart in JSON (optional)
+- Log out and error with ISO tiemstamp format

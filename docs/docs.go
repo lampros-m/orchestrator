@@ -139,8 +139,8 @@ const docTemplate = `{
                 "summary": "Run a group of executables",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "Group ID to run",
+                        "type": "string",
+                        "description": "Group name to run",
                         "name": "group",
                         "in": "query",
                         "required": true
@@ -231,7 +231,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "format": "uuid",
-                        "description": "UUID of the group to stop",
+                        "description": "UUID of the executable to stop",
                         "name": "id",
                         "in": "query",
                         "required": true
@@ -291,8 +291,8 @@ const docTemplate = `{
                 "summary": "Stops a group of executables",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "Group ID to stop",
+                        "type": "string",
+                        "description": "Group name to stop",
                         "name": "group",
                         "in": "query",
                         "required": true
@@ -357,7 +357,7 @@ const docTemplate = `{
                     "type": "boolean"
                 },
                 "group": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "id": {
                     "type": "string"

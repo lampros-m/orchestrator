@@ -30,11 +30,11 @@ type OrchestratorInterface interface {
 	Status(ctx context.Context) ([]Status, error)
 
 	RunAll(ctx context.Context) error
-	RunGroup(ctx context.Context, group int) error
+	RunGroup(ctx context.Context, group string) error
 	Run(ctx context.Context, processUUID uuid.UUID) error
 
 	StopAll(ctx context.Context) error
-	StopGroup(ctx context.Context, group int) error
+	StopGroup(ctx context.Context, group string) error
 	Stop(ctx context.Context, processUUID uuid.UUID) error
 
 	ExecLogs(ctx context.Context, logsType string, processUUID uuid.UUID, offset int) (string, error)
@@ -164,7 +164,7 @@ func (o *Orchestrator) RunAll(ctx context.Context) error {
 	return nil
 }
 
-func (o *Orchestrator) RunGroup(ctx context.Context, group int) error {
+func (o *Orchestrator) RunGroup(ctx context.Context, group string) error {
 	executablesGroup := Executables{}
 
 	for _, executable := range o.Executables {
@@ -219,7 +219,7 @@ func (o *Orchestrator) StopAll(ctx context.Context) error {
 	return nil
 }
 
-func (o *Orchestrator) StopGroup(ctx context.Context, group int) error {
+func (o *Orchestrator) StopGroup(ctx context.Context, group string) error {
 	executablesGroup := Executables{}
 
 	for _, executable := range o.Executables {

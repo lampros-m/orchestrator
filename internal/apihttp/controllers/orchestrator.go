@@ -128,7 +128,7 @@ func (o *Orchestrator) RunAll(echoContext echo.Context) error {
 //	@Description	This endpoint tries to run a group of executables that are set in the orchestrator.
 //	@Tags			orchestrator
 //	@Produce		json
-//	@Param			group	query		int	true	"Group ID to run"
+//	@Param			group	query		string	true	"Group name to run"
 //	@Success		200		{object}	dtos.GenericResponse
 //	@Failure		500		{object}	dtos.GenericResponse
 //	@Router			/rungroup [get]
@@ -136,12 +136,8 @@ func (o *Orchestrator) RunGroup(echoContext echo.Context) error {
 	ctx := echoContext.Request().Context()
 
 	group := echoContext.QueryParam("group")
-	groupInt, _ := strconv.Atoi(group)
-	if groupInt == 0 {
-		return echo.NewHTTPError(http.StatusBadRequest, dtos.GenericResponse{Message: "Group cannot be parsed successfully"})
-	}
 
-	err := o.instance.RunGroup(ctx, groupInt)
+	err := o.instance.RunGroup(ctx, group)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, dtos.GenericResponse{Message: "Failed to run group: " + err.Error()})
 	}
@@ -208,7 +204,7 @@ func (o *Orchestrator) StopAll(echoContext echo.Context) error {
 //	@Description	This endpoint tries to stop a group of executables that are set in the orchestrator.
 //	@Tags			orchestrator
 //	@Produce		json
-//	@Param			group	query		int	true	"Group ID to stop"
+//	@Param			group	query		string	true	"Group name to stop"
 //	@Success		200		{object}	dtos.GenericResponse
 //	@Failure		500		{object}	dtos.GenericResponse
 //	@Router			/stopgroup [get]
@@ -216,12 +212,8 @@ func (o *Orchestrator) StopGroup(echoContext echo.Context) error {
 	ctx := echoContext.Request().Context()
 
 	group := echoContext.QueryParam("group")
-	groupInt, _ := strconv.Atoi(group)
-	if groupInt == 0 {
-		return echo.NewHTTPError(http.StatusBadRequest, dtos.GenericResponse{Message: "Group cannot be parsed successfully"})
-	}
 
-	err := o.instance.StopGroup(ctx, groupInt)
+	err := o.instance.StopGroup(ctx, group)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, dtos.GenericResponse{Message: "Failed to stop group: " + err.Error()})
 	}
@@ -237,7 +229,7 @@ func (o *Orchestrator) StopGroup(echoContext echo.Context) error {
 //	@Description	This endpoint tries to stop an executable that is set in the orchestrator.
 //	@Tags			orchestrator
 //	@Produce		json
-//	@Param			id	query		string	true	"UUID of the group to stop"	format(uuid)
+//	@Param			id	query		string	true	"UUID of the executable to stop"	format(uuid)
 //	@Success		200	{object}	dtos.GenericResponse
 //	@Failure		500	{object}	dtos.GenericResponse
 //	@Router			/stop [get]

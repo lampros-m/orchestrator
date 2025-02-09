@@ -9,7 +9,7 @@ definitions:
       auto_restart:
         type: boolean
       group:
-        type: integer
+        type: string
       id:
         type: string
       name:
@@ -107,11 +107,11 @@ paths:
       description: This endpoint tries to run a group of executables that are set
         in the orchestrator.
       parameters:
-      - description: Group ID to run
+      - description: Group name to run
         in: query
         name: group
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -168,7 +168,7 @@ paths:
     get:
       description: This endpoint tries to stop an executable that is set in the orchestrator.
       parameters:
-      - description: UUID of the group to stop
+      - description: UUID of the executable to stop
         format: uuid
         in: query
         name: id
@@ -211,11 +211,11 @@ paths:
       description: This endpoint tries to stop a group of executables that are set
         in the orchestrator.
       parameters:
-      - description: Group ID to stop
+      - description: Group name to stop
         in: query
         name: group
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:

@@ -8,7 +8,7 @@
         "log_file_name": "out",
         "error_file_name": "errors",
         "auto_restart": true,
-        "group": 1
+        "group": "athens"
     },
     {
         "name": "Service Beta",
@@ -19,7 +19,7 @@
         "log_file_name": "out",
         "error_file_name": "errors",
         "auto_restart": false,
-        "group": 1
+        "group": "athens"
     },
     {
         "name": "Service Charlie",
@@ -30,7 +30,7 @@
         "log_file_name": "out",
         "error_file_name": "errors",
         "auto_restart": true,
-        "group": 2
+        "group": "london"
     },
     {
         "name": "List Home Directory",
@@ -41,7 +41,7 @@
         "log_file_name": "out",
         "error_file_name": "errors",
         "auto_restart": false,
-        "group": 2
+        "group": "london"
     },
     {
         "name": "Service Epsilon",
@@ -52,6 +52,6 @@
         "log_file_name": "out",
         "error_file_name": "errors",
         "auto_restart": false,
-        "group": 3
+        "group": "paris"
     }
 ]
